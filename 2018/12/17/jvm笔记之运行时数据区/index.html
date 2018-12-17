@@ -3,16 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>hello hexo | Hexo</title>
+  <title>jvm笔记之运行时数据区 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="hello hexo">
-<meta property="og:url" content="http://yoursite.com/2018/12/12/hello-hexo/index.html">
+  <meta name="description" content="运行时数据区 运行时数据区分为两类 线程私有区   1.程序计数器程序计数器是一片较小的内存区,它是当前线程的行号指示器,java虚拟机通过改变程序计数器的值来选取下一条运行的指令:分支,循环,跳转,线程回复,异常退出等.   2.虚拟机栈java虚拟机内存模型是这样讲的 :    线程共有区   程序计数器  程序计数器是线程私有的  虚拟机栈 本地方法栈 堆 方法区">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm笔记之运行时数据区">
+<meta property="og:url" content="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="运行时数据区 运行时数据区分为两类 线程私有区   1.程序计数器程序计数器是一片较小的内存区,它是当前线程的行号指示器,java虚拟机通过改变程序计数器的值来选取下一条运行的指令:分支,循环,跳转,线程回复,异常退出等.   2.虚拟机栈java虚拟机内存模型是这样讲的 :    线程共有区   程序计数器  程序计数器是线程私有的  虚拟机栈 本地方法栈 堆 方法区">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-12T11:41:52.687Z">
+<meta property="og:updated_time" content="2018-12-17T05:41:38.241Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hello hexo">
+<meta name="twitter:title" content="jvm笔记之运行时数据区">
+<meta name="twitter:description" content="运行时数据区 运行时数据区分为两类 线程私有区   1.程序计数器程序计数器是一片较小的内存区,它是当前线程的行号指示器,java虚拟机通过改变程序计数器的值来选取下一条运行的指令:分支,循环,跳转,线程回复,异常退出等.   2.虚拟机栈java虚拟机内存模型是这样讲的 :    线程共有区   程序计数器  程序计数器是线程私有的  虚拟机栈 本地方法栈 堆 方法区">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -61,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-hexo" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-jvm笔记之运行时数据区" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/12/12/hello-hexo/" class="article-date">
-  <time datetime="2018-12-12T11:41:52.000Z" itemprop="datePublished">2018-12-12</time>
+    <a href="/2018/12/17/jvm笔记之运行时数据区/" class="article-date">
+  <time datetime="2018-12-17T03:03:00.000Z" itemprop="datePublished">2018-12-17</time>
 </a>
     
   </div>
@@ -75,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hello hexo
+      jvm笔记之运行时数据区
     </h1>
   
 
@@ -83,11 +86,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title=" 运行时数据区 "></a><strong> 运行时数据区 </strong></h3><h4 id="运行时数据区分为两类"><a href="#运行时数据区分为两类" class="headerlink" title="运行时数据区分为两类"></a>运行时数据区分为两类</h4><ul>
+<li><strong>线程私有区</strong> <br><br>  <strong>1.程序计数器</strong><pre><code>程序计数器是一片较小的内存区,它是当前线程的行号指示器,java虚拟机通过改变程序计数器的值来选取下一条运行的指令:分支,循环,跳转,线程回复,异常退出等.
+</code></pre>  <strong>2.虚拟机栈</strong><pre><code>java虚拟机内存模型是这样讲的 :
+</code></pre></li>
+</ul>
+<ul>
+<li><strong>线程共有区</strong></li>
+</ul>
+<ol>
+<li><p><strong>程序计数器</strong><br></p>
+<p> 程序计数器是线程私有的</p>
+</li>
+<li><strong>虚拟机栈</strong></li>
+<li><strong>本地方法栈</strong></li>
+<li><strong>堆</strong></li>
+<li><strong>方法区</strong></li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjprw6bj8000002qon1cmucao" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjprw6bjv000302qoy6rx97zt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,19 +116,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/12/17/jvm笔记之运行时数据区/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          jvm笔记之运行时数据区
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/12/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/12/12/hello-hexo/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">hello hexo</div>
     </a>
   
 </nav>
