@@ -3,19 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>test | Hexo</title>
+  <title>jvm笔记之对象的创建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="电饭锅的双方各 电饭锅电饭锅   阿斯顿发斯蒂芬阿斯顿发斯蒂芬">
-<meta property="og:type" content="website">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://yoursite.com/test/index.html">
+  <meta name="description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以. 当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间 2.为对象分配空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm笔记之对象的创建">
+<meta property="og:url" content="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="电饭锅的双方各 电饭锅电饭锅   阿斯顿发斯蒂芬阿斯顿发斯蒂芬">
+<meta property="og:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以. 当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间 2.为对象分配空间">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-17T03:02:49.220Z">
+<meta property="og:updated_time" content="2018-12-17T08:52:08.904Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
-<meta name="twitter:description" content="电饭锅的双方各 电饭锅电饭锅   阿斯顿发斯蒂芬阿斯顿发斯蒂芬">
+<meta name="twitter:title" content="jvm笔记之对象的创建">
+<meta name="twitter:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以. 当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间 2.为对象分配空间">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -64,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-" class="article article-type-page" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-jvm笔记之对象的创建" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/test/index.html" class="article-date">
-  <time datetime="2018-12-17T03:00:45.000Z" itemprop="datePublished">2018-12-17</time>
+    <a href="/2018/12/17/jvm笔记之对象的创建/" class="article-date">
+  <time datetime="2018-12-17T08:29:18.000Z" itemprop="datePublished">2018-12-17</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      jvm笔记之对象的创建
     </h1>
   
 
@@ -86,19 +86,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>电饭锅的双方各 电饭锅电饭锅</p>
-<p></p><p><br>  阿斯顿发斯蒂芬<br>阿斯顿发斯蒂芬</p>
+        <p><strong>1.对象的创建</strong></p>
+<p>在java中创建一个对象很容易,直接用new关键字就可以.</p>
+<pre><code>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间
+</code></pre><p><strong>2.为对象分配空间</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/test/index.html" data-id="cjps2zf68000175qo98a37wbf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjps2zf6p000375qoljprm6n2" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/17/jvm笔记之运行时数据区/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jvm笔记之运行时数据区</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
