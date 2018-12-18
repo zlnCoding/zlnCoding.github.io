@@ -5,17 +5,17 @@
   
   <title>jvm笔记之对象的创建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间  2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:     1.指针碰撞         假设内存空间是绝对规整的,空闲区域与分配区域中间有">
+  <meta name="description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间   2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:  指针碰撞  假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jvm笔记之对象的创建">
 <meta property="og:url" content="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间  2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:     1.指针碰撞         假设内存空间是绝对规整的,空闲区域与分配区域中间有">
+<meta property="og:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间   2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:  指针碰撞  假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-18T02:21:16.423Z">
+<meta property="og:updated_time" content="2018-12-18T05:34:09.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm笔记之对象的创建">
-<meta name="twitter:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间  2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:     1.指针碰撞         假设内存空间是绝对规整的,空闲区域与分配区域中间有">
+<meta name="twitter:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间   2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:  指针碰撞  假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -86,22 +86,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>1.对象的创建</strong></p>
-<p>在java中创建一个对象很容易,直接用new关键字就可以.</p>
+        <h4 id="1-对象的创建"><a href="#1-对象的创建" class="headerlink" title="1.对象的创建"></a><strong>1.对象的创建</strong></h4><ul>
+<li><p>在java中创建一个对象很容易,直接用new关键字就可以.</p>
+</li>
+<li><p>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间</p>
+</li>
+</ul>
+<h4 id="2-为对象分配空间"><a href="#2-为对象分配空间" class="headerlink" title="2.为对象分配空间"></a><strong>2.为对象分配空间</strong></h4><ul>
+<li><p>上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:</p>
 <ol>
-<li>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间</li>
+<li><p>指针碰撞</p>
+<blockquote>
+<p>假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是            将指针向空闲区域移动对象所需内存的大小.</p>
+</blockquote>
+</li>
+<li><p>空闲列表</p>
+<blockquote>
+<p>如果内存空间不是规整的,那么内存中还需要维护一个空闲列表,当需要分配内存时          就是在空闲列表中找出能够容下当前对象所需的内存空间.如果容不下就会触发一次            CG.</p>
+</blockquote>
+</li>
 </ol>
-<p></p><p><strong>2.为对象分配空间</strong></p>
-<pre><code>上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:
-    1.指针碰撞
-        假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是将指针向空闲区域移动对象所需内存的大小.
-    2.空闲列表
-         如果内存空间不是规整的,那么内存中还需要维护一个空闲列表,当需要分配内存时就是在空闲列表中找出能够容下当前对象所需的内存空间.如果容不下就会触发一次CG.
-</code></pre>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjpt55jo800037gqomtm8nhtx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjptkdqrf0003iwqoddhk00a9" class="article-share-link">Share</a>
       
       
     </footer>
