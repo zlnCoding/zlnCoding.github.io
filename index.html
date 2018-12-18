@@ -65,7 +65,7 @@
     <article id="post-jvm笔记之对象的创建" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/17/jvm笔记之对象的创建/" class="article-date">
-  <time datetime="2018-12-17T08:29:18.000Z" itemprop="datePublished">2018-12-17</time>
+  <time datetime="2018-12-17T08:29:00.000Z" itemprop="datePublished">2018-12-17</time>
 </a>
     
   </div>
@@ -86,13 +86,20 @@
       
         <p><strong>1.对象的创建</strong></p>
 <p>在java中创建一个对象很容易,直接用new关键字就可以.</p>
-<pre><code>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间
-</code></pre><p><strong>2.为对象分配空间</strong></p>
-
+<ol>
+<li>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间</li>
+</ol>
+<p></p><p><strong>2.为对象分配空间</strong></p>
+<pre><code>上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:
+    1.指针碰撞
+        假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是将指针向空闲区域移动对象所需内存的大小.
+    2.空闲列表
+         如果内存空间不是规整的,那么内存中还需要维护一个空闲列表,当需要分配内存时就是在空闲列表中找出能够容下当前对象所需的内存空间.如果容不下就会触发一次CG.
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjps2zf6p000375qoljprm6n2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjpt1bzbm00031fqod3pepvjp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -127,32 +134,40 @@
         <h3 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title=" 运行时数据区 "></a><strong> 运行时数据区 </strong></h3><h4 id="运行时数据区分为两类"><a href="#运行时数据区分为两类" class="headerlink" title="运行时数据区分为两类"></a>运行时数据区分为两类</h4><ul>
 <li><p><strong>线程私有区</strong></p>
 <p>   线程私有的区域并发时不会被其他线程访问,所以私有线程不会出现并发问题</p>
-<p>  <strong>1.程序计数器</strong></p>
-<pre><code>程序计数器是一片较小的内存区,它是当前线程的行号指示器,java虚拟机通过改变程序计数器的值来选取下一条运行的指令:分支,循环,跳转,线程回复,异常退出等.
-</code></pre><p>  <strong>2.虚拟机栈</strong></p>
-<pre><code>java虚拟机内存模型是这样讲的 :
-每一个方法创建的同时,都会创建一个栈帧,用于存放局部变量表,操作数栈等.每个方法的开始到结束,对应一个栈帧的入栈到出栈.
-局部变量表存放这各种编译期已知的常亮,引用数据类型,方法的返回地址值.其中long/double在64位虚拟机占两个局部变量表空间,其余占一个空间.局部变量表再栈中占多大空间在编译期就已知,方法在执行时不会改变局部变量表的大小.
-</code></pre><p>   <strong>3.本地方法栈</strong></p>
-<pre><code>本地方法栈就是native方法栈@@@@@@
-</code></pre></li>
+<p><strong>1.程序计数器</strong></p>
+<ul>
+<li>程序计数器是一片较小的内存区,它是当前线程的行号指示器,java虚拟机通过改变程序计数器的值来选取下一条运行的指令:分支,循环,跳转,线程回复,异常退出等.</li>
+</ul>
+<p><strong>2.虚拟机栈</strong></p>
+<ul>
+<li>java虚拟机内存模型是这样讲的 :<br>  每一个方法创建的同时,都会创建一个栈帧,用于存放局部变量表,操作数栈等.每个方法的开始到结束,对应一个栈帧的入栈到出栈.<br>  局部变量表存放这各种编译期已知的常亮,引用数据类型,方法的返回地址值.其中long/double在64位虚拟机占两个局部变量表空间,其余占一个空间.局部变量表再栈中占多大空间在编译期就已知,方法在执行时不会改变局部变量表的大小.</li>
+</ul>
+<p><strong>3.本地方法栈</strong></p>
+<ul>
+<li>本地方法栈就是native方法栈@@@@@@</li>
+</ul>
+</li>
 <li><p><strong>线程公有区</strong></p>
 <p>  线程公有的区域并发时会被其他线程访问,所以公有线程会出现并发问题</p>
 <p><strong>1.堆</strong></p>
-<pre><code>在jvm中,所有的对象都分配在堆中(除JNI于逃逸分析),也是垃圾收集主要区域,以内存回收的角度,堆内存又分为年轻代与老年代,年轻代又可分为eden区和to区和form区,以内存分配的角度,堆又可按线程分为多个TLAB(thread local allcat buffer).
-</code></pre><p><strong>2.方法区</strong></p>
-<pre><code>  方法区又叫永久代,但是在某些特定的情况下还是会发生CG(字面量没有被引用,类没有被引用,加载类的ClassLoader被回收,不能通过反射获得对象).
-方法区存放的是类信息,常亮以及静态变量还有即时编译器编译的代码
-方法区中除了储存上面的信息还有一个运行时常量池,用于储存字面量以及符号的引用
-</code></pre><p><strong>3.直接内存</strong></p>
-<pre><code>直接内存*&amp;()&amp;()*^%^&amp;*()*)^*()^
-</code></pre></li>
+<ul>
+<li>在jvm中,所有的对象都分配在堆中(除JNI于逃逸分析),也是垃圾收集主要区域,以内存回收的角度,堆内存又分为年轻代与老年代,年轻代又可分为eden区和to区和form区,以内存分配的角度,堆又可按线程分为多个TLAB(thread local allcat buffer).</li>
+</ul>
+<p><strong>2.方法区</strong></p>
+<ul>
+<li>方法区又叫永久代,但是在某些特定的情况下还是会发生CG(字面量没有被引用,类没有被引用,加载类的ClassLoader被回收,不能通过反射获得对象).<br>   方法区存放的是类信息,常亮以及静态变量还有即时编译器编译的代码<br>   方法区中除了储存上面的信息还有一个运行时常量池,用于储存字面量以及符号的引用</li>
+</ul>
+<p><strong>3.直接内存</strong></p>
+<ul>
+<li>直接内存<em>&amp;()&amp;()</em>^%^&amp;<em>()</em>)^*()^</li>
+</ul>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjps2zf6r000475qozg5g6815" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjpt1bzbv00041fqo05tqhl5d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjps2zf5z000075qof1bl8r02" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjpt1bza500001fqog2lshexo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,7 +248,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-world/" data-id="cjps2zf6l000275qoqvj9d6z7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/12/hello-world/" data-id="cjpt1bzbi00021fqo3in4o8xl" class="article-share-link">Share</a>
       
       
     </footer>
