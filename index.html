@@ -87,9 +87,8 @@
         <h4 id="1-对象的创建"><a href="#1-对象的创建" class="headerlink" title="1.对象的创建"></a><strong>1.对象的创建</strong></h4><ul>
 <li><p>在java中创建一个对象很容易,直接用new关键字就可以.</p>
 </li>
-<li><p>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间</p>
-</li>
-</ul>
+<li><p>当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间.</p>
+<hr>
 <h4 id="2-为对象分配空间"><a href="#2-为对象分配空间" class="headerlink" title="2.为对象分配空间"></a><strong>2.为对象分配空间</strong></h4><ul>
 <li><p>上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:</p>
 <ol>
@@ -97,20 +96,63 @@
 <blockquote>
 <p>假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞就是            将指针向空闲区域移动对象所需内存的大小.</p>
 </blockquote>
+<blockquote>
+<p>这种分配方式会出现并发问题,当一条线程读取指针,还没移动指针时,另一条线          程又读到了旧的指针,这种问题有两种解决方式:</p>
+<ul>
+<li>一种是通过CAS与失败重试的策略.</li>
+<li>另一种是通过TLAB,将共享的内存划分为多个私有的缓存区,当缓存区满                再申请新的内存空间</li>
+</ul>
+</blockquote>
 </li>
 <li><p>空闲列表</p>
 <blockquote>
-<p>如果内存空间不是规整的,那么内存中还需要维护一个空闲列表,当需要分配内存时          就是在空闲列表中找出能够容下当前对象所需的内存空间.如果容不下就会触发一次            CG.</p>
+<p>如果内存空间不是规整的,那么内存中还需要维护一个空闲列表,当需要分配内存        时就是在空闲列表中找出能够容下当前对象所需的内存空间.如果容不下                   就会触发一次GC.</p>
 </blockquote>
 </li>
 </ol>
+<p>用什么样的方式分配内存取决于垃圾收集器是否带有整理功能.</p>
+<p>空间分配完以后需要把基础数据类型初始化为0;</p>
+<hr>
+<h4 id="3-实例对象"><a href="#3-实例对象" class="headerlink" title="3.实例对象"></a><strong>3.实例对象</strong></h4></li>
+<li><p>分配完空间时候需要实例化对象,需要以下三个步骤:</p>
+<p><strong>1. 对象头</strong></p>
+<blockquote>
+<p>对象头分为两部分:</p>
+<ul>
+<li>一部分是对象的hashcode,对象持有的锁,GC年龄分代,线程状态,是否使用偏            向锁,轻量级锁,重量级锁等,这部分数据放在对象头中.</li>
+<li>另一部分是类型指针,说明该实例属于哪个类,类型指针分为两类:<ol>
+<li>直接引用:<ul>
+<li>直接引用就是栈中的引用类型指向堆中的实例,然后实例的对象头中的类                型指针再指向方法区中类信息.这样做的好处是节省了句柄池方式的一次                指针开销.也不需要再开辟空间维护句柄池.</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>句柄池:<ul>
+<li>句柄池就是栈中的引用类型不直接指向实例,而是指向堆中维护的句柄池                中,句柄池中存放着当前实例的实例指针以及方法区中的类型指针,这样                做的好处如果实例及类的地址值变化只需要更新句柄池中的指针,不需要                更改栈中的指针.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<pre><code>&gt; 如果当前对象是一个数组,那么他的对象头中还应该包括数组的长度.   
+</code></pre><p><strong>2. 实例数据</strong></p>
+<blockquote>
+<p>实例数据就是将对象的包括父类的属性,字段按照父类,子类,还有声明顺序初始          化,如果开启不记得的一个参数还有子类中较小的数据插入到父类的空隙中</p>
+</blockquote>
+<p><strong>3. 对齐填充</strong></p>
+<blockquote>
+<p>因为hotspot虚拟机规定结尾必须为8位,对齐填充就是补位.</p>
+</blockquote>
+</li>
+</ul>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjptkdqrf0003iwqoddhk00a9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjputl23s0003l6qocf1ztq50" class="article-share-link">Share</a>
       
       
     </footer>
@@ -172,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjptkdqri0004iwqobt6f820q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjputl2410004l6qo33ix93jm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -208,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjptkdqqr0000iwqo0mu361yw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjputl23c0000l6qo157124ft" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-world/" data-id="cjptkdqr50002iwqog76i5hja" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/12/hello-world/" data-id="cjputl23o0002l6qofyatssmb" class="article-share-link">Share</a>
       
       
     </footer>
