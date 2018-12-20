@@ -62,6 +62,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jvm笔记之垃圾收集器" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/20/jvm笔记之垃圾收集器/" class="article-date">
+  <time datetime="2018-12-20T07:03:00.000Z" itemprop="datePublished">2018-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/20/jvm笔记之垃圾收集器/">jvm笔记之垃圾收集器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-判断对象生死"><a href="#1-判断对象生死" class="headerlink" title=" 1.判断对象生死"></a><strong> 1.判断对象生死</strong></h2><p>   判断对象的生死有两种方法:</p>
+<ul>
+<li><p>引用计数法</p>
+<p>当一个对象的实例有被引用时引用计数器就会+1,当不被引用时计数器-1,当计数器为0时,说明当前实例没有被引用,可以回收.这种方法有被重复引用的问题,当两个对象互相引用那这两个对象永远也不会被回收.</p>
+</li>
+<li><p>GCRoot</p>
+<p>jvm虚拟机中定义了一些GCRoot,GCRoot到实例有一条引用链相连,一个实例能直接或间接的连接到GCRoot那么说明这个对象是存活的,反之就是需要回收的垃圾对象.</p>
+<p>GCRoot定义:</p>
+<ul>
+<li>栈中的本地变量表</li>
+<li>方法区中的静态属性</li>
+<li>方法区中的常亮</li>
+<li>本地方法中的……</li>
+</ul>
+</li>
+</ul>
+<p>引用的分类:</p>
+<ul>
+<li><p>强引用</p>
+<p>  强引用就是如 Object object = new Object(),这种引用的对象不会被回收</p>
+</li>
+<li><p>软引用</p>
+<p>  被软引用的对象,在下次GC时被回收,这种引用的好处就是不会造成内存溢出.</p>
+</li>
+<li><p>弱引用</p>
+<p>被弱引用的对象,会在当次GC时呗回收.</p>
+</li>
+<li><p>虚引用</p>
+<p>虚引用没什么实际含义,他的作用就是怎么样通知你一下..哈哈记不清了</p>
+</li>
+</ul>
+<p>没有被引用的实例也并非死亡,jvm会做两次标记,第一次标记是看看对象有没有覆盖finalize方法,如果覆盖了且没有执行过,就把这个对象放入一个FIFO队列中,稍后虚拟机会创建一个低优先级的线程去读取FIFO中的对象并执行finalize方法,jvm并不保证会执行完这个方法,如果这个方法发生死锁就会导致一次FGC,如果对象在finalize方法中拯救了自己那就又复活了.jvm并不推荐这种用法.</p>
+<h2 id="2-垃圾收集算法"><a href="#2-垃圾收集算法" class="headerlink" title="2.垃圾收集算法"></a><strong>2.垃圾收集算法</strong></h2><p>目前垃圾收集算法有4种</p>
+<h5 id="1-标记清除法"><a href="#1-标记清除法" class="headerlink" title="1. 标记清除法"></a>1. 标记清除法</h5><p>   标记清除法分为两步,标记与清除,标记阶段就是标记哪些对象能与GCRoot连接,清除阶段就是把垃圾对象清空.这种算法容易出现空间碎片,当没有足够的空间分配对象而不得不触发FCG</p>
+<h5 id="2-标记整理法"><a href="#2-标记整理法" class="headerlink" title="2. 标记整理法"></a>2. 标记整理法</h5><p> 标记整理法同样分为两个阶段,且第一阶段与标记清除法相同,第二阶段会将存活的对象按顺序排列到内存的一端,然后再把垃圾清掉,这样的好处就是不会出来空间碎片.</p>
+<h5 id="3-复制算法"><a href="#3-复制算法" class="headerlink" title="3. 复制算法"></a>3. 复制算法</h5><h5 id="4-分代收集算法"><a href="#4-分代收集算法" class="headerlink" title="4. 分代收集算法"></a>4. 分代收集算法</h5><h2 id="3-垃圾收集器"><a href="#3-垃圾收集器" class="headerlink" title="3.垃圾收集器"></a><strong>3.垃圾收集器</strong></h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/20/jvm笔记之垃圾收集器/" data-id="cjpwdg24m0003wlqo879tukeh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jvm笔记之对象的创建" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/17/jvm笔记之对象的创建/" class="article-date">
@@ -76,7 +147,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/17/jvm笔记之对象的创建/">jvm笔记之对象的创建</a>
+      <a class="article-title" href="/2018/12/17/jvm笔记之对象的创建/">jvm笔记之对象创建</a>
     </h1>
   
 
@@ -150,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjpw0g6l40003m5qobwkyo49y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjpwdg24v0004wlqow22it8jn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -212,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjpw0g6l80004m5qofyjklg0o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之运行时数据区/" data-id="cjpwdg24z0005wlqoh9atcccf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -248,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjpw0g6kg0000m5qo6hn96sgw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/12/hello-hexo/" data-id="cjpwdg2450000wlqo91jk3nf9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -293,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/12/hello-world/" data-id="cjpw0g6ku0002m5qoe5130utf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/12/hello-world/" data-id="cjpwdg24i0002wlqoefjx1mta" class="article-share-link">Share</a>
       
       
     </footer>
@@ -333,7 +404,11 @@
       <ul>
         
           <li>
-            <a href="/2018/12/17/jvm笔记之对象的创建/">jvm笔记之对象的创建</a>
+            <a href="/2018/12/20/jvm笔记之垃圾收集器/">jvm笔记之垃圾收集器</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/17/jvm笔记之对象的创建/">jvm笔记之对象创建</a>
           </li>
         
           <li>

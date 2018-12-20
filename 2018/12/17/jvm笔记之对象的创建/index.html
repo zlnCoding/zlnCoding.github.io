@@ -3,18 +3,18 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>jvm笔记之对象的创建 | Hexo</title>
+  <title>jvm笔记之对象创建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间.    2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:  指针碰撞  假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jvm笔记之对象的创建">
+<meta property="og:title" content="jvm笔记之对象创建">
 <meta property="og:url" content="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间.    2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:  指针碰撞  假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-20T03:01:41.543Z">
+<meta property="og:updated_time" content="2018-12-20T05:14:37.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jvm笔记之对象的创建">
+<meta name="twitter:title" content="jvm笔记之对象创建">
 <meta name="twitter:description" content="1.对象的创建 在java中创建一个对象很容易,直接用new关键字就可以.  当jvm遇见new关键字,首先去运行时常量池中找有没有这个符号的引用,如果没有就执行对应的加载,解析,初始化流程.然后为对象在堆内存中,分配空间.    2.为对象分配空间 上一步之后,对象所需的内存空间就可以确定了,分配空降有两种方式:  指针碰撞  假设内存空间是绝对规整的,空闲区域与分配区域中间有一个指针,指针碰撞">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -78,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      jvm笔记之对象的创建
+      jvm笔记之对象创建
     </h1>
   
 
@@ -152,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjpw0g6l40003m5qobwkyo49y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/jvm笔记之对象的创建/" data-id="cjpwdg24v0004wlqow22it8jn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -160,6 +160,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/12/20/jvm笔记之垃圾收集器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          jvm笔记之垃圾收集器
+        
+      </div>
+    </a>
   
   
     <a href="/2018/12/17/jvm笔记之运行时数据区/" id="article-nav-older" class="article-nav-link-wrap">
@@ -201,7 +210,11 @@
       <ul>
         
           <li>
-            <a href="/2018/12/17/jvm笔记之对象的创建/">jvm笔记之对象的创建</a>
+            <a href="/2018/12/20/jvm笔记之垃圾收集器/">jvm笔记之垃圾收集器</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/17/jvm笔记之对象的创建/">jvm笔记之对象创建</a>
           </li>
         
           <li>
